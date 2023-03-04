@@ -2,7 +2,7 @@ import openai
 import streamlit as st
 
 # 设置OpenAI API密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 # 定义一个函数，使用OpenAI GPT-3生成代码
 def generate_code(prompt, language):
@@ -13,7 +13,7 @@ def generate_code(prompt, language):
         max_tokens=2048,
         n=1,
         stop=None,
-        temperature=0.7
+        temperature=0.7,
     )
     message = completions.choices[0].text
     return message
