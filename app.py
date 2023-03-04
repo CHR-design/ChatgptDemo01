@@ -2,15 +2,15 @@ import openai
 import streamlit as st
 
 # 设置OpenAI API密钥
-openai.api_key = "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"
+openai.api_key = "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"
 
 # 定义一个函数，使用OpenAI GPT-3生成代码
 def generate_code(prompt, language):
-    model_engine = "text-davinci-003"
+    model_engine = "text-davinci-002"
     completions = openai.Completion.create(
         engine=model_engine,
         prompt=prompt,
-        max_tokens=2048,
+        max_tokens=1024,
         n=1,
         stop=None,
         temperature=0.7,
