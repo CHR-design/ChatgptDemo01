@@ -26,11 +26,10 @@ def home_page():
             if not session_state["logged_in"]:
                 st.warning("请先登录")
                 st.experimental_set_query_params(page="login")
-                return
-                # stop rendering here
+                
             else:
                 st.experimental_set_query_params(page="resume")
-                return
+                
 
         if st.button("代码编写"):
             st.experimental_set_query_params(page="code")
