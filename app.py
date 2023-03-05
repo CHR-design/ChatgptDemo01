@@ -2,7 +2,7 @@ import openai
 import streamlit as st
 
 # 设置OpenAI API密钥
-openai.api_key = "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"
+openai.api_key = st.secrets["openai"]["api_key"]
 
 # 定义一个函数，使用OpenAI GPT-3生成代码
 def generate_code(prompt, language):
