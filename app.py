@@ -9,7 +9,7 @@ def generate_code(prompt, language):
     model_engine = "text-codex-002"
     completions = openai.Completion.create(
         engine=model_engine,
-        prompt=f"请使用 {language}代码{prompt}.",
+        prompt="请使用 {language}代码{prompt}.",
         max_tokens=2048,
         n=1,
         stop=None,
