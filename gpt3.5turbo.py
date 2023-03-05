@@ -11,7 +11,7 @@ model = 'gpt-3.5-turbo'
 # 定义一个函数，使用GPT-3生成代码
 def generate_code(prompt, language):
     
-    completions = openai.ChatCompletion.create(
+    completions = openai.Completion.create(
         model="gpt-3.5-turbo",
         messages=[
             {"role": "system", "content": f"Please write a {language} code that {prompt}."}
