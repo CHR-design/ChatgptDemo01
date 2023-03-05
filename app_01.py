@@ -5,7 +5,18 @@ import openai
 openai.api_key = st.secrets["openai"]["api_key"]
 
 
-# Define homepage layout
+
+
+
+
+
+
+# Define app
+def app_01():
+    # Initialize session state
+    session_state = st.session_state.get(logged_in=False)
+
+    # Define homepage layout
 def home_page():
     st.title("解惑学院")
     st.write("欢迎来到解惑学院！")
@@ -22,10 +33,9 @@ def home_page():
         st.experimental_set_query_params(page="homework")
     if st.button("看医生"):
         st.experimental_set_query_params(page="doctor")
-
-
-# Define login page layout
-def login_page():
+        
+    # Define login page layout
+    def login_page():
     st.title("Login")
     # Add login form
     with st.form(key="login_form"):
@@ -38,13 +48,7 @@ def login_page():
             if username == "admin" and password == "admin":
                 session_state.logged_in = True
                 st.experimental_set_query_params(page="home")
-
-
-# Define app
-def app_01():
-    # Initialize session state
-    session_state = st.session_state.get(logged_in=False)
-
+                
     # not logged in
     if st.experimental_get_query_params().get("page") == "login":
         login_page()
