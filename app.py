@@ -6,10 +6,10 @@ openai.api_key = st.secrets["openai"]["api_key"]
 
 # 定义一个函数，使用GPT-3生成代码
 def generate_code(prompt, language):
-    model_engine = "text-davinci-003"
+    model_engine = "text-codex-002"
     completions = openai.Completion.create(
         engine=model_engine,
-        prompt=prompt,
+        prompt=f"请使用 {language}代码{prompt}.",
         max_tokens=2048,
         n=1,
         stop=None,
