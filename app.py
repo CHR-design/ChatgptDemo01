@@ -1,37 +1,39 @@
 import openai
 import streamlit as st
 
-# 设置OpenAI API密钥
+# 设置OpenAI API的访问密钥
 openai.api_key = st.secrets["openai"]["api_key"]
 
-# 定义一个函数，使用OpenAI GPT-3生成代码
-def generate_code(prompt, language):
-    model_engine = "text-davinci-003"
+# 定义一个函数，使用GPT-3生成代码
+def generate_code(language, prompt):
+    model_engine = "text-codex-002"
+    # 设置生成代码的参数
     completions = openai.Completion.create(
         engine=model_engine,
-        prompt=prompt,
+        prompt=f"Please write a {language} code that {prompt}.",
         max_tokens=2048,
         n=1,
         stop=None,
-        temperature=0.7
+        temperature=0.5,
     )
+    # 从生成代码的结果中提取代码
     message = completions.choices[0].text
-    return message
+    code = message.strip()
+    return code
 
-# Streamlit 应用程序主体
-def app():
-    st.title("OpenAI GPT-3 代码生成器")
-    st.write("请输入您的需求内容和编程语言，让GPT-3帮助您生成代码！")
+# 设置Streamlit应用程序的外观和布局
+st.set_page_config(page_title="Generate Code", page_icon=":computer:", layout="wide")
 
-    # 获取用户输入
-    prompt = st.text_input("输入您的需求内容")
-    language = st.text_input("输入编程语言")
+st.title("OpenAI GPT-3 代码生成器")
+st.write("请输入您的需求内容和编程语言，让GPT-3帮助您生成代码！")
 
-    # 按下按钮以生成代码
-    if st.button("生成代码"):
-        # 调用 generate_code() 函数
-        code = generate_code(prompt, language)
-        st.code(code, language=language)
+# 允许用户选择编程语言和需求
+language = st.selectbox("编程语言", ["Python", "JavaScript", "Java"])
+prompt = st.text_input("输入您的需求内容", "generate Fibonacci sequence")
 
-if __name__ == '__main__':
-    app()
+# 当用户单击按钮时，使用GPT-3生成代码
+if st.button("Generate Code"):
+    code = generate_code(language, prompt)
+    # 显示生成的代码
+    st.code(code, language=language.lower())
+
