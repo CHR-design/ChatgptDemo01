@@ -3,7 +3,7 @@ import openai
 import markdown
 
 # Set OpenAI API key
-openai.api_key = "st.secrets["openai"]["api_key"]"
+openai.api_key = st.secrets["openai"]["api_key"]
 
 
 # Initialize session state
