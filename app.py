@@ -9,7 +9,7 @@ def generate_code(prompt, language):
     model_engine = "text-davinci-003"
     completions = openai.Completion.create(
         engine=model_engine,
-        prompt="请使用 {language}代码{prompt}.",
+        prompt=f"Please write a {language} code that {prompt}.",
         max_tokens=2048,
         n=1,
         stop=None,
