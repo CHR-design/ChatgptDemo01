@@ -5,14 +5,11 @@ import streamlit as st
 # 设置OpenAI API的访问密钥
 openai.api_key = st.secrets["openai"]["api_key"]
 
-model = 'gpt-3.5-turbo'
-
-
 # 定义一个函数，使用GPT-3生成代码
 def generate_code(prompt, language):
     
-    completions = openai.Completion.create(
-        model="gpt-3.5-turbo",
+    completions = openai.ChatCompletion.create(
+        model=model,
         messages=[
             {"role": "system", "content": f"Please write a {language} code that {prompt}."}
         ]
