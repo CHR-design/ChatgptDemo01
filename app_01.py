@@ -8,7 +8,10 @@ openai.api_key = st.secrets["openai"]["api_key"]
 # Define app
 def app():
     # Initialize session state
-    session_state = st.session_state.get(logged_in=False)
+    if "logged_in" not in st.session_state:
+        st.session_state["logged_in"] = False
+
+    session_state = st.session_state
 
     # Define homepage layout
     def home_page():
