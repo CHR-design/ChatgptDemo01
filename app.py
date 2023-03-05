@@ -24,7 +24,7 @@ def app():
 
     # 获取用户输入
     prompt = st.text_input("输入您的需求内容")
-    language = st.selectbox("编程语言", ["Python", "JavaScript", "Java"])
+    language = st.selectbox("编程语言", ["Python", "JavaScript", "Java", "Html"])
 
     # 按下按钮以生成代码
     if st.button("生成代码"):
