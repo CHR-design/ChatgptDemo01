@@ -36,18 +36,18 @@ def home_page():
         
     # Define login page layout
     def login_page():
-    st.title("Login")
-    # Add login form
-    with st.form(key="login_form"):
-        username = st.text_input("用户名")
-        password = st.text_input("密码", type="password")
-        submit = st.form_submit_button("Login")
+        st.title("Login")
+        # Add login form
+        with st.form(key="login_form"):
+            username = st.text_input("用户名")
+            password = st.text_input("密码", type="password")
+            submit = st.form_submit_button("Login")
 
-        # Verify user credentials and set session state
-        if submit:
-            if username == "admin" and password == "admin":
-                session_state.logged_in = True
-                st.experimental_set_query_params(page="home")
+            # Verify user credentials and set session state
+            if submit:
+                if username == "admin" and password == "admin":
+                    session_state.logged_in = True
+                    st.experimental_set_query_params(page="home")
                 
     # not logged in
     if st.experimental_get_query_params().get("page") == "login":
