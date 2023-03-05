@@ -5,18 +5,16 @@ import streamlit as st
 openai.api_key = st.secrets["openai"]["api_key"]
 
 # 定义一个函数，使用GPT-3生成代码
-def generate_code(language, prompt):
-    model_engine = "text-codex-002"
-    # 设置生成代码的参数
+def generate_code(prompt, language):
+    model_engine = "text-davinci-003"
     completions = openai.Completion.create(
         engine=model_engine,
         prompt=prompt,
         max_tokens=2048,
         n=1,
         stop=None,
-        temperature=0.5,
+        temperature=0.7
     )
-    # 从生成代码的结果中提取代码
     message = completions.choices[0].text
     return message
 
