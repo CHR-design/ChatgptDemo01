@@ -18,8 +18,7 @@ def generate_code(language, prompt):
     )
     # 从生成代码的结果中提取代码
     message = completions.choices[0].text
-    code = message.strip()
-    return code
+    return message
 
 def app():
     st.title("OpenAI GPT-3 代码生成器")
