@@ -11,7 +11,8 @@ def generate_code(prompt, language):
     completions = openai.ChatCompletion.create(
         model=model,
         messages=[
-            {"role": "system", "content": f"Please write a {language} code that {prompt}."}
+            {"role": "system", "content": f"你现在是一个程序员，我会给你一些需求，请你用{language}语言代码回复"},
+            {"role": "user", "content": f"{prompt}"}
         ]
     )
     message = completions.choices[0].text
