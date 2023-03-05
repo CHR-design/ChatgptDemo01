@@ -10,7 +10,7 @@ def generate_code(language, prompt):
     # 设置生成代码的参数
     completions = openai.Completion.create(
         engine=model_engine,
-        prompt=f"Please write a {language} code that {prompt}.",
+        prompt=prompt,
         max_tokens=2048,
         n=1,
         stop=None,
