@@ -2,9 +2,24 @@ import openai
 
 import streamlit as st
 
-# 设置 OpenAI API 密钥
 
-openai.api_key = "YOUR_API_KEY_HERE"
+# 设置OpenAI API的访问密钥
+
+openai.api_key = st.secrets["openai"]["api_key"]
+
+# 定义一个函数，使用GPT-3生成代码
+
+def generate_code(prompt, language):
+
+    model_engine = "text-davinci-003"
+
+    completions = openai.Completion.create(
+
+        engine=model_engine,
+
+
+    
+
 
 # 创建 Streamlit 应用程序
 
