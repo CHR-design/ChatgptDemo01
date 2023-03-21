@@ -7,13 +7,6 @@ import streamlit as st
 
 openai.api_key = st.secrets["openai"]["api_key"]
 
-# 定义一个函数，使用GPT-3生成代码
-
-
-
-
-    
-
 
 # 创建 Streamlit 应用程序
 
@@ -25,9 +18,7 @@ def main():
 
     name = st.text_input("请输入您的姓名")
 
-    birth_date = st.text_input("请输入您的出生日期（格式为 YYYY-MM-DD）")
-
-    birth_time = st.text_input("请输入您的出生时间（格式为 HH:MM）")
+    birth_date = st.text_input("请输入您的出生日期（格式为 YYYY年MM月DD日）")
 
     location = st.text_input("请输入您的居住地")
 
@@ -43,7 +34,7 @@ def main():
 
             engine="davinci-codex",
 
-            prompt=f"姓名：{name}\n出生日期：{birth_date}\n出生时间：{birth_time}\n居住地：{location}\n问题：{question}",
+            prompt=f"用周易帮我算{question}，本人姓名：{name}\n出生日期：{birth_date}\n居住地：{location}\n",
 
             temperature=0.7,
 
