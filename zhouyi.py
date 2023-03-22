@@ -44,8 +44,6 @@ def main():
 
             stop=None,
 
-
-
         )
 
         # 显示 OpenAI API 的响应
