@@ -7,7 +7,7 @@ openai.api_key = st.secrets["openai"]["api_key"]
 def generate_prescription(symptoms):
     prompt = "生成一个中医和西医药方，用于治疗以下症状：" + symptoms + "。"
     response = openai.Completion.create(
-        engine="davinci-codex",
+        engine="text-davinci-003",
         prompt=prompt,
         max_tokens=1024,
         n=1,
