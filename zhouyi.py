@@ -1,4 +1,4 @@
-import openai
+ import openai
 
 import streamlit as st
 
@@ -32,7 +32,7 @@ def main():
 
         response = openai.Completion.create(
 
-            engine="davinci-codex",
+            engine="text-davinci-003",
 
             prompt=f"用周易帮我算{question}，本人姓名：{name}\n出生日期：{birth_date}\n居住地：{location}\n",
 
