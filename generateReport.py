@@ -5,7 +5,7 @@ openai.api_key = st.secrets["openai"]["api_key"]
 
 # 定义生成日报的函数
 def generate_report(work_content):
-    prompt = f"Generate a daily report for {work_content}."
+    prompt = f"生成一份日报，内容是{work_content}."
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt=prompt,
