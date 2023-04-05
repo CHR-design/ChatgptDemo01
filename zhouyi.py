@@ -32,7 +32,7 @@ def main():
 
             engine="text-davinci-003",
 
-            prompt=f"用周易帮我算{question}，本人姓名：{name}\n生辰八字：{birth_date}\n居住地：{location}\n",
+            prompt=f"用周易帮我算{question}，本人姓名：{name}\n生辰八字：{birth_date}\n",
 
             temperature=0.7,
 
