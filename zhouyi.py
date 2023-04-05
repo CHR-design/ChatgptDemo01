@@ -18,11 +18,9 @@ def main():
 
     name = st.text_input("请输入您的姓名")
 
-    birth_date = st.text_input("请输入您的出生日期（格式为 YYYY年MM月DD日）")
+    birth_date = st.text_input("请输入您的生辰八字")
 
-    location = st.text_input("请输入您的居住地")
-
-    question = st.text_input("请输入您的问题")
+    question = st.text_input("请输入您的问题[如，我的婚姻；我明天期末考试如何；(具体问题：人+时间+地点+事件)]")
 
     # 添加“提交”按钮
 
@@ -34,7 +32,7 @@ def main():
 
             engine="text-davinci-003",
 
-            prompt=f"用周易帮我算{question}，本人姓名：{name}\n出生日期：{birth_date}\n居住地：{location}\n",
+            prompt=f"用周易帮我算{question}，本人姓名：{name}\n生辰八字：{birth_date}\n居住地：{location}\n",
 
             temperature=0.7,
 
