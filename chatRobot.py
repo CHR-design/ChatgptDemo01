@@ -2,12 +2,12 @@ import openai
 import streamlit as st
 
 # set up OpenAI API key
-openai.api_key = "YOUR_API_KEY_HERE"
+openai.api_key = st.secrets["openai"]["api_key"]
 
 # define function to interact with OpenAI
 def generate_text(prompt):
     response = openai.Completion.create(
-      engine="text-davinci-002",
+      engine="text-davinci-003",
       prompt=prompt,
       max_tokens=60,
       n=1,
