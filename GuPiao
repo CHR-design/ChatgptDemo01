@@ -1,0 +1,57 @@
+import streamlit as st
+import requests
+import time
+from datetime import datetime
+
+# 设置股票市场的开盘和收盘时间
+market_open_time = datetime.now().replace(hour=9, minute=30, second=0, microsecond=0)
+market_close_time = datetime.now().replace(hour=15, minute=0, second=0, microsecond=0)
+
+# 用于保存满足条件的股票列表
+selected_stocks = []
+
+def get_stock_data(symbol):
+    url = f"http://hq.sinajs.cn/list={symbol}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data = response.text
+        fields = data.split(',')
+        # 返回股票代码，当前价格，开盘价，昨收价，最高价，最低价
+        return {
+            "symbol": symbol,
+            "current_price": float(fields[3]),
+            "open_price": float(fields[1]),
+            "prev_close": float(fields[2])
+        }
+    else:
+        return None
+
+def calculate_speed(current_price, open_price):
+    return (current_price - open_price) / open_price * 100
+
+def monitor_stocks(symbols):
+    while datetime.now() < market_close_time:
+        if datetime.now() >= market_open_time:
+            for symbol in symbols:
+                stock_data = get_stock_data(symbol)
+                if stock_data:
+                    speed = calculate_speed(stock_data["current_price"], stock_data["open_price"])
+                    if speed > 2:
+                        selected_stocks.append(stock_data["symbol"])
+                        st.write(f"股票 {stock_data['symbol']} 涨速超过 2%！")
+            time.sleep(1)
+        else:
+            st.write("市场尚未开盘")
+            time.sleep(60)
+
+st.title("实时股票监控")
+st.write("监控涨速超过2%的股票")
+
+# 输入要监控的股票代码，例如：sh600000,sz000001
+symbols_input = st.text_input("输入股票代码（逗号分隔）")
+symbols = symbols_input.split(',')
+
+if st.button("开始监控"):
+    monitor_stocks(symbols)
+
+st.write("满足条件的股票：", selected_stocks)
