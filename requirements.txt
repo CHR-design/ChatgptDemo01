@@ -1,3 +1,4 @@
 openai==0.8.0
 streamlit==1.19.0
 markdown==3.4.1
+akshare == 1.15.53
