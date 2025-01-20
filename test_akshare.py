@@ -7,8 +7,6 @@ import time
 AMOUNT = 10000 #每次交易总金额
 MAX_BUY = 3  # 买入股票最大数量
 BIG_ORDER_RATIO_THRESHOLD = 25# 大单净比阈值
-SELL_RATIO=2 #分多少批次卖出 分2次卖出(测试)
-STOP_LOSS_THRESHOLD=0.05 #止损幅度 下跌5%止损
 
 
 UP_LIMIT_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
@@ -49,7 +47,6 @@ def executeCycle(UP_LIMIT_DF):
     执行周期函数，筛选出符合条件的股票：
     条件：首板第一次涨停，本周期涨停，且大单净比 > 25，最多筛选 3 个股票，非一字涨停板
     """
-
     # 获取当前周期股票信息
     df = get_ticket_info()
     # 获取主板股票数据
@@ -60,7 +57,7 @@ def executeCycle(UP_LIMIT_DF):
     mainBoarddata['涨停价'] = mainBoarddata['涨停价'].round(2)
     
     # 筛选出当前价格等于或接近涨停价的股票
-    upLimitNow = mainBoarddata[mainBoarddata['最新价'] == mainBoarddata['涨停价']]
+    upLimitNow = mainBoarddata[mainBoarddata['最新价'] >= mainBoarddata['涨停价'] - 0.01]
     
     # 只关注首板第一次涨停的股票(第一次读取所有涨停票，而不是涨停过的票，正常从头到尾运行的话就没问题)
     first_time_up_limit = upLimitNow[~upLimitNow['代码'].isin(UP_LIMIT_DF['代码'])]
@@ -150,6 +147,7 @@ if st.button("点击开始"):
         print(f"==============今天星期{ current_day + 1 }==============")
         if current_day >= 0 and current_day <= 4:  # 工作日
             # 早上9:25开始执行
+            st.write(f"==============现在时间{ now }==============")
             print(f"==============现在时间{ now }==============")
             if now >= datetime.time(9, 25) and now <= datetime.time(11, 30):
                 print(f"==============现在是早盘==============")
