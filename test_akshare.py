@@ -147,13 +147,16 @@ if st.button("点击开始"):
         current_day = dateTime.weekday()  # 获取当前星期几，星期一是0，星期天是6
         begin = 1
         # 判断是否为工作日（周一到周五）
+        print(f"==============今天星期{ current_day + 1 }==============")
         if current_day >= 0 and current_day <= 4:  # 工作日
             # 早上9:25开始执行
+            print(f"==============现在时间{ now }==============")
             if now >= datetime.time(9, 25) and now <= datetime.time(11, 30):
+                print(f"==============现在是早盘==============")
                 # 每天早上执行一次，重置所有外部参数
                 if begin != 0:
                     begin = 0
-
+                    print(f"==============更新begin为{begin}==============")
                     UP_LIMIT_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
                     CANDIDATE_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
                     CANDIDATE_LAST_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
@@ -164,13 +167,17 @@ if st.button("点击开始"):
             # time.sleep(2)  # 休息
             # 下午1:00开始执行
             elif now >= datetime.time(13, 0) and now <= datetime.time(15, 0):
-                st.write(f"runing morning...{now}")
+                print(f"==============现在是午盘==============")
+                st.write(f"runing afternoon...{now}")
                 UP_LIMIT_DF = executeCycle(UP_LIMIT_DF)
             else:
+                print(f"==============现在是非交易时间==============")
                 # 非交易时间段，休息一段时间（例如 5 分钟），避免过于频繁的检查，并且更新为新的一天
+                # if (now >= datetime.time(0, 0) and now <= datetime.time(9, 25)) or ( now >= datetime.time(15, 0) and now <= datetime.time(23, 59) ):
                 if now <= datetime.time(9, 25) or now >= datetime.time(15, 0):
                     if begin != 1:
                         begin = 1
+                        print(f"==============更新begin为{begin}==============")
                 st.write("rest...")
                 time.sleep(300)  # 休息
         else:
