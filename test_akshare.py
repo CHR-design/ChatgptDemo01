@@ -106,8 +106,8 @@ def executeCycle(UP_LIMIT_DF):
             print("=================================candidate_select_df=================================")
             print(candidate_select_df)
             print("=================================candidate_select_df=================================")
-            # 从候选中选择最多 3 个股票
-            candidate_select_df = candidate_select_df.head(MAX_BUY)
+            # # 从候选中选择最多 3 个股票
+            # candidate_select_df = candidate_select_df.head()
 
             # 指定要保存的列
             columns_to_save = ['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值','涨速', '大单净比']
@@ -130,9 +130,9 @@ def executeCycle(UP_LIMIT_DF):
                 '涨速_当前':'涨速',
                 '大单净比_当前': '大单净比'
             }, inplace=True)
-            st.write("=================================result_df=================================")
+            st.write("==============result_df==============")
             st.dataframe(result_df)
-            st.write("=================================result_df=================================")
+            st.write("==============result_df==============")
             return UP_LIMIT_DF
 # Streamlit 应用程序
 
@@ -147,7 +147,7 @@ if st.button("点击开始"):
         print(f"==============今天星期{ current_day + 1 }==============")
         if current_day >= 0 and current_day <= 4:  # 工作日
             # 早上9:25开始执行
-            st.write(f"==============现在时间{ now }==============")
+            # st.write(f"时间：{ now }")
             print(f"==============现在时间{ now }==============")
             if now >= datetime.time(9, 25) and now <= datetime.time(11, 30):
                 print(f"==============现在是早盘==============")
