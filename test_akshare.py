@@ -138,6 +138,11 @@ def executeCycle(UP_LIMIT_DF):
 
 st.title("打板生成器")
 if st.button("点击开始"):
+    UP_LIMIT_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
+    CANDIDATE_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
+    CANDIDATE_LAST_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
+    # 记录上一周期行情数据
+    last_df = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
     while True:
         dateTime = datetime.datetime.now() + datetime.timedelta(hours=8)
         now = dateTime.time()
