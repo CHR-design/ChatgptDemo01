@@ -139,7 +139,7 @@ def executeCycle(UP_LIMIT_DF):
 st.title("打板生成器")
 if st.button("点击开始"):
     while True:
-        dateTime = datetime.datetime.now()
+        dateTime = datetime.datetime.now() + datetime.timedelta(hours=8)
         now = dateTime.time()
         current_day = dateTime.weekday()  # 获取当前星期几，星期一是0，星期天是6
         begin = 1
