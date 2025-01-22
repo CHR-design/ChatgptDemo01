@@ -6,7 +6,7 @@ import time
 
 AMOUNT = 10000 #每次交易总金额
 MAX_BUY = 3  # 买入股票最大数量
-BIG_ORDER_RATIO_THRESHOLD = 25# 大单净比阈值
+BIG_ORDER_RATIO_THRESHOLD = 23# 大单净比阈值
 
 
 UP_LIMIT_DF = pd.DataFrame(columns=['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值', '涨速', '大单净比'])
@@ -71,6 +71,7 @@ def executeCycle(UP_LIMIT_DF):
         right_on='代码', 
         how='left'
     )
+
     # 重命名 '今日主力净流入-净占比' 列为 '大单净比_当前'
     first_time_up_limit.rename(columns={'今日主力净流入-净占比': '大单净比'}, inplace=True)
     if UP_LIMIT_DF.empty:
@@ -80,6 +81,8 @@ def executeCycle(UP_LIMIT_DF):
         UP_LIMIT_DF = pd.concat([UP_LIMIT_DF, first_time_up_limit], ignore_index=True)
     # 当前周期的选股逻辑
     if not first_time_up_limit.empty:
+            st.dataframe(f"first_time_up_limit第一次涨停的股票:{first_time_up_limit}")
+
             # 选择 df 中代码字段等于 first_time_up_limit 中代码的数据，创建新的 candidate_now_df
             candidate_now_df = pd.merge(first_time_up_limit['代码'], df, on='代码', how='inner')
             candidate_now_df = pd.merge(
@@ -103,21 +106,12 @@ def executeCycle(UP_LIMIT_DF):
                 (candidate_now_df['大单净比_当前'] > BIG_ORDER_RATIO_THRESHOLD)
             ]
 
-            print("=================================candidate_select_df=================================")
-            print(candidate_select_df)
-            print("=================================candidate_select_df=================================")
-            # # 从候选中选择最多 3 个股票
-            # candidate_select_df = candidate_select_df.head()
-
             # 指定要保存的列
             columns_to_save = ['代码', '名称', '最新价', '涨跌幅', '昨收', '换手率', '流通市值','涨速', '大单净比']
             
             # 选择特定列，并将数据复制到新的 DataFrame
             result_df = candidate_select_df[['代码_当前', '名称_当前', '最新价_当前', '涨跌幅_当前', '昨收_当前', '换手率_当前',
                                              '流通市值_当前', '涨速_当前', '大单净比_当前']].copy()
-            print("=================================result_df=================================")
-            print(result_df)
-            print("=================================result_df=================================")
             # 重命名列名
             result_df.rename(columns={
                 '代码_当前': '代码',
@@ -130,9 +124,7 @@ def executeCycle(UP_LIMIT_DF):
                 '涨速_当前':'涨速',
                 '大单净比_当前': '大单净比'
             }, inplace=True)
-            st.write("==============result_df==============")
-            st.dataframe(result_df)
-            st.write("==============result_df==============")
+            st.dataframe(f"result_df满足条件的股票:{result_df}")
             return UP_LIMIT_DF
 # Streamlit 应用程序
 
